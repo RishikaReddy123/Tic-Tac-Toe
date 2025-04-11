@@ -1,31 +1,26 @@
 import { useState } from "react";
 
-const initialGameBoard = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null]
-]
+const GameBoard = ({onSelectSquare, board}) => {
+    
+    // const[gameBoard, setGameBoard] = useState(initialGameBoard);
 
-const GameBoard = ({onSelectSquare, activePlayerSymbol}) => {
-    const[gameBoard, setGameBoard] = useState(initialGameBoard);
-
-    const handleSelectSquare = (rowIndex, colIndex) => {
-        setGameBoard((prevBoard) => {
-            const updatedBoard = [...prevBoard.map(innerArray => [...innerArray])] 
-            updatedBoard[rowIndex][colIndex] = activePlayerSymbol;
-            return updatedBoard;
-        })
-        onSelectSquare();
-    }
+    // const handleSelectSquare = (rowIndex, colIndex) => {
+    //     setGameBoard((prevBoard) => {
+    //         const updatedBoard = [...prevBoard.map(innerArray => [...innerArray])] 
+    //         updatedBoard[rowIndex][colIndex] = activePlayerSymbol;
+    //         return updatedBoard;
+    //     })
+    //     onSelectSquare();
+    // }
 
     return(
         <ol id='game-board'>
-            {gameBoard.map((row, rowIndex) => (
+            {board.map((row, rowIndex) => (
                 <li key={rowIndex}>
                     <ol>
                         {row.map((playerSymbol, colIndex) => (
                             <li key={colIndex}>
-                                <button onClick={() => {handleSelectSquare(rowIndex, colIndex)}}>{playerSymbol}</button>
+                                <button onClick={() => onSelectSquare(rowIndex, colIndex)} disabled={playerSymbol !== null}>{playerSymbol}</button>
                             </li>
                         ))}
                     </ol>
